@@ -23,7 +23,7 @@ case class AuthUser(id: String)
 
 case class AccessToken(token: String, refreshToken: Option[String], tokenType: String, scope: Option[String], expiresIn: Long, createdAt: Date)
 
-case class AuthInfo(user: Option[AuthUser], clientId: Option[String], scope: Option[String], redirectUri: Option[String], refreshable: Boolean, grantType: GrantType.Value, remoteAddress: Option[String] = None)
+case class AuthInfo(user: Option[AuthUser], clientId: Option[String], scope: Option[String], redirectUri: Option[String], refreshable: Boolean, grantType: GrantType.Value, remoteAddress: Option[String] = None, burnerIds: List[String] = Nil)
 
 trait OAuth2DataHandler {
 
