@@ -108,7 +108,7 @@ trait OAuth2Directives extends FormFieldDirectives with ParameterDirectives {
       'approval_prompt.as[ApprovalPrompt.Value] ? ApprovalPrompt.AUTO,
       'approved_scopes.as[String] ? scopes,
       'user_id.as[AuthUser] ? user.id,
-      'burner_ids.as[Option[String]] ? 
+      'burner_ids.as[Option[String]] ?
     ).as(AuthRequest)
 
   def fetchAuthRequest(user: AuthUser): Directive1[AuthRequest] =

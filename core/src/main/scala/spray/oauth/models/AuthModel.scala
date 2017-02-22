@@ -35,7 +35,7 @@ case class AuthRequest(response_type: ResponseType.Value,
     approval_prompt: ApprovalPrompt.Value,
     approved_scopes: String = "",
     user_id: String = "",
-    burnerIds: String = "") {
+    burnerIds: Option[String] = None) {
   require(!client_id.isEmpty, "client id must not be empty")
   require(consumerScopeEmptyRule, "scope must not be empty")
   require(DisplayType.values.exists(_.equals(display)), s"Invalid display: ${display}")
