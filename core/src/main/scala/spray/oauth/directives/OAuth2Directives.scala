@@ -108,7 +108,7 @@ trait OAuth2Directives extends FormFieldDirectives with ParameterDirectives {
       'approval_prompt.as[ApprovalPrompt.Value] ? ApprovalPrompt.AUTO,
       'approved_scopes.as[String] ? scopes,
       'user_id.as[AuthUser] ? user.id,
-      'burner_ids.as[String] ? ""
+      'burner_ids.as[Option[String]] ? 
     ).as(AuthRequest)
 
   def fetchAuthRequest(user: AuthUser): Directive1[AuthRequest] =
@@ -148,7 +148,7 @@ trait OAuth2Directives extends FormFieldDirectives with ParameterDirectives {
               AuthResponse.Error("canceled_by_user", Some("canceled by user"))
             } else {
               val approvedScopes = if (request.approved_scopes.isEmpty) request.scope else request.approved_scopes
-              val authInfo = AuthInfo(request.optionalUser, Some(request.client_id), Some(approvedScopes), Some(request.redirect_uri), request.isRefreshable, request.getGrantType, request.getClientIP(ctx), request.burnerIds.split(",").toList)
+              val authInfo = AuthInfo(request.optionalUser, Some(request.client_id), Some(approvedScopes), Some(request.redirect_uri), request.isRefreshable, request.getGrantType, request.getClientIP(ctx), request.burnerIds.map(_.split(",").toList).getOrElse(Nil))
 
               val tokenResponse =
                 request.getGrantType match {
